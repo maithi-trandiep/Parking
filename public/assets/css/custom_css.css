@@ -1,0 +1,12 @@
+table {
+    table-layout: fixed !important;
+    word-wrap:break-word;
+}
+thead input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}
+a {
+    cursor: pointer;
+}
