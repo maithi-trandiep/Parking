@@ -20,9 +20,9 @@ class UserSeeder extends Seeder
               'prenom' => 'admin',
               'email' => 'admin@gmail.com',
               'username' => 'admin',
-              'pwd' => 'password',
+              'pwd' => bcrypt('password'),
               'role' => 'admin',
-              'active_compte' => '1',
+              'compte_active' => 1,
             ),
         ));
     }

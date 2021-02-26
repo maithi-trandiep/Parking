@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('pwd');
             $table->string('role');
-            $table->tinyInteger('active_compte')->default('0');
+            $table->tinyInteger('compte_active')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'))->nullable();
         });
