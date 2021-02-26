@@ -45,6 +45,12 @@ class PlaceSeeder extends Seeder
             array(
                 'libel' => 'E2'
             ),
+            array(
+                'libel' => 'F1'
+            ),
+            array(
+                'libel' => 'F2'
+            ),
         ));
     }
 }
