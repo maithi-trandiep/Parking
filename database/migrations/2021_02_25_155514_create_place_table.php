@@ -15,7 +15,7 @@ class CreatePlaceTable extends Migration
     public function up()
     {
         Schema::create('place', function (Blueprint $table) {
-            $table->increments('idP');
+            $table->increments('id');
             $table->string('libel');
             $table->boolean('statutP')->default(0);
             $table->timestamp('created_at')->useCurrent();

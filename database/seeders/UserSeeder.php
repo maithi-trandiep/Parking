@@ -16,12 +16,10 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert(array(
             array(
-              'nom' => 'admin',
-              'prenom' => 'admin',
-              'email' => 'admin@gmail.com',
-              'username' => 'admin',
-              'pwd' => bcrypt('password'),
-              'compte_active' => 1,
+              'name' => 'admin',
+              'lname' => 'admin',
+              'email' => 'admin@admin.com',
+              'password' => bcrypt('password'),
             ),
         ));
     }

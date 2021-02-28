@@ -16,12 +16,12 @@ class RoleSeeder extends Seeder
     {
         DB::table('roles')->insert(array(
             array(
-              'idRL' => 1,
-              'libelRL' => 'admin'
+              'id' => 1,
+              'libel' => 'Admin'
             ),
             array(
-                'idRL' => 2,
-                'libelRL' => 'user'
+              'id' => 2,
+              'libel' => 'User'
               ),
         ));
     }

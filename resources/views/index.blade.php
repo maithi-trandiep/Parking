@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('header')
+@include('includes.header')
 <body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper">
     <!-- Navbar -->
-    @include('navbar')
+    @include('includes.navbar')
     <!-- /.navbar -->
     
     <!-- Content Wrapper. Contains page content -->
@@ -47,11 +47,11 @@
     <!-- /.content-wrapper -->
 
     <!-- Main Footer -->
-    @include('footer')
+    @include('includes.footer')
 </div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-@include('jQuery')
+@include('includes.jQuery')
 </body>
 </html>

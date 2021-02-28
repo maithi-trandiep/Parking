@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/index', function () {
-    return view('index');
-});
+// Route::get('/index', function () {
+//     return view('index');
+// });
+
+Route::redirect('/', '/login');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/showstatus', [App\Http\Controllers\Admin\UserStatusController::class, 'index'])->name('showstatus');
+Route::get('/status/{id}', [App\Http\Controllers\Admin\UserStatusController::class, 'status'])->name('status');

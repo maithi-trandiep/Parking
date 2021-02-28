@@ -19,8 +19,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'lname',
         'email',
         'password',
+        'status',
     ];
 
     /**
@@ -41,4 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles() {
+        return $this->belongsToMany(Role::class, 'user_role');
+    }
+
+    public function isAdmin() {
+        return $this->roles()->where('libel', 'Admin')->exists();
+     }
 }

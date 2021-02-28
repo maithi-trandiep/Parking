@@ -15,9 +15,9 @@ class CreateReservationTable extends Migration
     public function up()
     {
         Schema::create('reservation', function (Blueprint $table) {
-            $table->increments('idR');
-            $table->integer('idU')->unsigned();
-            $table->integer('idP')->unsigned()->nullable();
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('place_id')->unsigned()->nullable();
             $table->string('statutR');
             $table->timestamp('dateDemande')->useCurrent();
             $table->timestamp('dateMAJ')->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'))->nullable();
@@ -26,13 +26,13 @@ class CreateReservationTable extends Migration
         });
 
         Schema::table('reservation', function (Blueprint $table) {
-            $table->foreign('idU')
-                ->references('idU')
+            $table->foreign('user_id', 'fk_reservation_user')
+                ->references('id')
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('idP')
-                ->references('idP')
+            $table->foreign('place_id', 'fk_reservation_place')
+                ->references('id')
                 ->on('place')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
