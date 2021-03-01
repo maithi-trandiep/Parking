@@ -28,13 +28,17 @@ class UserStatusController extends Controller
         return view('userStatus');
     }
     
-    public function index(Request $request)
+    public function index(Request $request, User $user)
     {
         if ($request->ajax()) {
             $data = User::latest()->get();
             return Datatables::of($data)
-                ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Active</a>';
+                ->addColumn('action', function($data){
+                    if($data->status == 1){
+                    $actionBtn = '<a href="'. route('status', $data->id) .'" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="status">Inactive</a>';
+                    }else if($data->status == 0){
+                    $actionBtn = '<a href="'. route('status', $data->id) .'" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="status">Active</a>';       
+                    }
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

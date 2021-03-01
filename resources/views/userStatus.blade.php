@@ -57,7 +57,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -88,7 +88,15 @@
         columns: [
             {data: 'name', name: 'name'},
             {data: 'lname', name: 'lname'},
-            {data: 'status', name: 'status'},
+            {data: 'status', render:function(data){
+                    if(data==1){
+                        return '<span class="badge badge-success">Active</span>'
+                    }
+                    if(data==0){
+                        return '<span class="badge badge-warning">Inactive</span>'
+                    }
+                }
+            },
             {
                 data: 'action', 
                 name: 'action', 
