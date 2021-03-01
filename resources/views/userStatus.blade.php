@@ -50,21 +50,14 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <td>Prénom</td>
-                                            <td>Nom</td>
-                                            <td>Status</td>
-                                            <td>Action</td>
+                                            <th>Prénom</th>
+                                            <th>Nom</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($users as $user)
-                                        <tr>
-                                            <th>{{ $user->name }}</th>
-                                            <th>{{ $user->lname }}</th>
-                                            <th>@if($user->status == 0) Inactive @else Active @endif</th>
-                                            <th><a href="{{ route('status', ['id'=>$user->id]) }}">@if($user->status == 1) Inactive @else Active @endif</a></th>
-                                        </tr>
-                                        @endforeach
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -84,6 +77,29 @@
 
 <!-- jQuery -->
 @include('includes.jQuery')
+
+<script type="text/javascript">
+  $(function () {
+    
+    var table = $('.table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('showstatus') }}",
+        columns: [
+            {data: 'name', name: 'name'},
+            {data: 'lname', name: 'lname'},
+            {data: 'status', name: 'status'},
+            {
+                data: 'action', 
+                name: 'action', 
+                orderable: true, 
+                searchable: true
+            },
+        ]
+    });
+    
+  });
+</script>
 </body>
 </html>
 

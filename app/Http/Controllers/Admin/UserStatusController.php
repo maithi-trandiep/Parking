@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserStatusController extends Controller
 {
@@ -16,10 +17,29 @@ class UserStatusController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    // public function index()
+    // {
+    //     $users = DB::table('users')->get();
+    //     return view('userStatus', ['users' => $users]);
+    // }
+
+    public function show()
     {
-        $users = DB::table('users')->get();
-        return view('userStatus', ['users' => $users]);
+        return view('userStatus');
+    }
+    
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = User::latest()->get();
+            return Datatables::of($data)
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Active</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function status(Request $request, $id){

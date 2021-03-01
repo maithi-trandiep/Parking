@@ -40,7 +40,7 @@
           <img src="{{ asset('assets/img/user_photo.png') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Nom_Utilisateur</a>
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -74,7 +74,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ route('showstatus') }}" class="nav-link">
+                    <a href="{{ route('show') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Liste des statuts</p>
                     </a>
