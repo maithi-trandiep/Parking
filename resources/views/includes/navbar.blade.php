@@ -131,7 +131,7 @@
                     <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file-alt"></i>
                     <p>
-                        Faire une réservation
+                        Consulter la réservation
                         <i class="fas fa-angle-left right"></i>
                     </p>
                     </a>
@@ -139,7 +139,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Formulaire</p>
+                        <p>Faire une réservation</p>
                     </a>
                     </li>
                     </ul>

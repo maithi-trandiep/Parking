@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/index', function () {
-//     return view('index');
+//     return view('welcome');
 // });
 
 Route::redirect('/', '/login');
@@ -25,3 +25,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/show', [App\Http\Controllers\Admin\UserStatusController::class, 'show'])->name('show');
 Route::get('/showstatus', [App\Http\Controllers\Admin\UserStatusController::class, 'index'])->name('showstatus');
 Route::get('/status/{id}', [App\Http\Controllers\Admin\UserStatusController::class, 'status'])->name('status');
+
+//Resource route for User
+Route::resource('users', [App\Http\Controllers\Admin\UserController::class]);
+// Route for get Users for yajra post request.
+Route::get('get-users', [App\Http\Controllers\Admin\ArticleController::class, 'getUsers'])->name('get-users');
