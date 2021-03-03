@@ -27,6 +27,6 @@ Route::get('/showstatus', [App\Http\Controllers\Admin\UserStatusController::clas
 Route::get('/status/{id}', [App\Http\Controllers\Admin\UserStatusController::class, 'status'])->name('status');
 
 //Resource route for User
-Route::resource('users', [App\Http\Controllers\Admin\UserController::class]);
+Route::resource('users', App\Http\Controllers\Admin\UserController::class);
 // Route for get Users for yajra post request.
-Route::get('get-users', [App\Http\Controllers\Admin\ArticleController::class, 'getUsers'])->name('get-users');
+Route::get('get-users', [App\Http\Controllers\Admin\UserController::class, 'getUsers'])->name('get-users');

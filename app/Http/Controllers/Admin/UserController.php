@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        return view('users.userList');
     }
 
     /**
@@ -26,7 +26,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getArticles(Request $request, User $user)
+    public function getUsers(Request $request, User $user)
     {
         $data = User::latest()->get();
         return DataTables::of($data)
@@ -67,8 +67,13 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        $user->storeData($request->all());
+        $user = new User;
+        $user->name = $request->name;
+        $user->lname = $request->lname;
+        $user->email = $request->email;
+        $user->password = $request->password;
 
+        $user->save();
         return response()->json(['success'=>'User added successfully']);
     }
 
@@ -92,7 +97,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = new User;
-        $data = $user->findData($id);
+        $data = $user->find($id);
 
         $html = '<div class="form-group">
                     <label for="Name">Prénom:</label>
@@ -135,7 +140,12 @@ class UserController extends Controller
         }
 
         $user = new User;
-        $user->updateData($id, $request->all());
+        $user->name = $request->name;
+        $user->lname = $request->lname;
+        $user->email = $request->email;
+        $user->password = $request->password;
+
+        $user->save();
 
         return response()->json(['success'=>'User updated successfully']);
     }
@@ -148,8 +158,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = new User;
-        $user->deleteData($id);
+        $user = User::find($id);
+        $user->delete();
 
         return response()->json(['success'=>'User deleted successfully']);
     }
