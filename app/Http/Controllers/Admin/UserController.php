@@ -28,11 +28,11 @@ class UserController extends Controller
      */
     public function getUsers(Request $request, User $user)
     {
-        $data = User::latest()->get();
+        $data = $user->getData();
         return DataTables::of($data)
             ->addColumn('Actions', function($data) {
                 return '<button type="button" class="btn btn-success btn-sm" id="getEditArticleData" data-id="'.$data->id.'">Edit</button>
-                    <button type="button" data-id="'.$data->id.'" data-toggle="modal" data-target="#DeleteArticleModal" class="btn btn-danger btn-sm" id="getDeleteId">Delete</button>';
+                    <button type="button" data-id="'.$data->id.'" data-toggle="modal" data-target="#DeleteArticleModal" class="btn btn-danger btn-sm btnDelete" id="btnDelete-'.$data->id.'">Delete</button>';
             })
             ->rawColumns(['Actions'])
             ->make(true);
@@ -101,19 +101,19 @@ class UserController extends Controller
 
         $html = '<div class="form-group">
                     <label for="Name">Prénom:</label>
-                    <input type="text" class="form-control" name="name" id="editName" value="'.$data->name.'">
+                    <input type="text" class="form-control" name="name" id="name" value="'.$data->name.'" required/>
                 </div>
                 <div class="form-group">
                     <label for="LName">Nom</label>
-                    <input type="text" class="form-control" name="lname" id="editLName" value="'.$data->lname.'">
+                    <input type="text" class="form-control" name="lname" id="lname" value="'.$data->lname.'" required/>
                 </div>
                 <div class="form-group">
                     <label for="Email">Email:</label>
-                    <input type="text" class="form-control" name="email" id="editEmail" value="'.$data->email.'">
+                    <input type="text" class="form-control" name="email" id="email" value="'.$data->email.'" required/>
                 </div>
                 <div class="form-group">
                     <label for="Password">Password:</label>
-                    <input type="text" class="form-control" name="password" id="editPassword" value="'.$data->password.'">
+                    <input type="text" class="form-control" name="password" id="password" value="'.$data->password.'" required/>
                 </div>';
 
         return response()->json(['html'=>$html]);
@@ -131,7 +131,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
         ]);
         
@@ -139,13 +139,25 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        $user = new User;
-        $user->name = $request->name;
-        $user->lname = $request->lname;
-        $user->email = $request->email;
-        $user->password = $request->password;
+        // $request->validate([
+        //     'name' => 'required',
+        //     'name' => 'required',
+        //     'email' => 'required',
+        //     'password' => 'required'
+        //     ]);
 
-        $user->save();
+        // $user = new User;
+        // $user->name = $request->name;
+        // $user->lname = $request->lname;
+        // $user->email = $request->email;
+        // $user->password = $request->password;
+
+        // $user->save();
+
+        $user = new User;
+        $user->updateData($id, $request->all());
+
+        
 
         return response()->json(['success'=>'User updated successfully']);
     }
@@ -158,8 +170,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
+        $user = new User;
+        $user->deleteData($id);
 
         return response()->json(['success'=>'User deleted successfully']);
     }

@@ -69,15 +69,15 @@
         <!-- /.content-wrapper -->
 
         <!-- Create Article Modal -->
-        <div class="modal" id="CreateArticleModal">
+        <!--<div class="modal" id="CreateArticleModal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <!-- Modal Header -->
+                    
                     <div class="modal-header">
                         <h4 class="modal-title">Créer utilisateur</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <!-- Modal body -->
+                    
                     <div class="modal-body">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -107,14 +107,14 @@
                             <input type="text" class="form-control" name="created_at" id="created_at">
                         </div>
                     </div>
-                    <!-- Modal footer -->
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" id="SubmitCreateActicleForm">Créer</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <!-- Edit Article Modal -->
         <div class="modal" id="EditArticleModal">
@@ -303,9 +303,11 @@
 
         // Delete article Ajax request.
         var deleteID;
-        $('body').on('click', '#getDeleteId', function(){
+        $('body').on('click', '.btnDelete', function(){
             deleteID = $(this).data('id');
-        })
+            console.log('deleteid', deleteID);
+            $('#DeleteArticleModal').modal('show');
+        });
         $('#SubmitDeleteArticleForm').click(function(e) {
             e.preventDefault();
             var id = deleteID;
@@ -318,9 +320,9 @@
                 url: "users/"+id,
                 method: 'DELETE',
                 success: function(result) {
-                    setInterval(function(){ 
+                    setTimeout(function(){ 
                         $('.table-user').DataTable().ajax.reload();
-                        $('#DeleteArticleModal').hide();
+                        $('#DeleteArticleModal').modal('hide');
                     }, 1000);
                 }
             });
