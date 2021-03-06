@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\User;
+use App\Models\Place;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class PlaceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.userList');
+        return view('places.placeList');
     }
 
     /**
@@ -26,9 +26,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getUsers(Request $request, User $user)
+    public function getPlaces(Request $request, Place $place)
     {
-        $data = $user->getData();
+        $data = $place->getData();
         return DataTables::of($data)
             ->addColumn('Actions', function($data) {
                 return '<button type="button" class="btn btn-success btn-sm" id="getEditArticleData" data-id="'.$data->id.'">Modifier</button>
@@ -54,20 +54,18 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request, Place $place)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'lname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
+            'libel' => ['required', 'string', 'max:255'],
+            'statutP' => ['required'],
         ]);
         
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        $user->storeData($request->all());
+        $place->storeData($request->all());
 
         return response()->json(['success'=>'User added successfully']);
     }
@@ -91,24 +89,21 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = new User;
-        $data = $user->find($id);
+        $place = new Place;
+        $data = $place->find($id);
 
         $html = '<div class="form-group">
-                    <label for="Name">Prénom:</label>
-                    <input type="text" class="form-control" name="name" id="name" value="'.$data->name.'" required/>
+                    <label for="libel">Libelle:</label>
+                    <input type="text" class="form-control" name="libel" id="libel" value="'.$data->libel.'" required/>
                 </div>
                 <div class="form-group">
-                    <label for="LName">Nom</label>
-                    <input type="text" class="form-control" name="lname" id="lname" value="'.$data->lname.'" required/>
-                </div>
-                <div class="form-group">
-                    <label for="Email">Email:</label>
-                    <input type="text" class="form-control" name="email" id="email" value="'.$data->email.'" required/>
-                </div>
-                <div class="form-group">
-                    <label for="Password">Password:</label>
-                    <input type="text" class="form-control" name="password" id="password" value="'.$data->password.'" required/>
+                    <label for="statutP">Statut:</label>
+                        <select class="form-control" id="statutP">
+                        @if($data->statutP == 0){
+                        <option value="0">Libre</option>
+                        } else
+                        <option value="1">Occupé</option>
+                        </select>
                 </div>';
 
         return response()->json(['html'=>$html]);
@@ -124,22 +119,18 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'lname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
+            'libel' => ['required', 'string', 'max:255'],
+            'statutP' => ['required'],
         ]);
         
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        $user = new User;
-        $user->updateData($id, $request->all());
+        $place = new Place;
+        $place->updateData($id, $request->all());
 
-        
-
-        return response()->json(['success'=>'User updated successfully']);
+        return response()->json(['success'=>'Place updated successfully']);
     }
 
     /**
@@ -150,9 +141,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = new User;
-        $user->deleteData($id);
+        $place = new Place;
+        $place->deleteData($id);
 
-        return response()->json(['success'=>'User deleted successfully']);
+        return response()->json(['success'=>'Place deleted successfully']);
     }
 }

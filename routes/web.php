@@ -30,3 +30,8 @@ Route::get('/status/{id}', [App\Http\Controllers\Admin\UserStatusController::cla
 Route::resource('users', App\Http\Controllers\Admin\UserController::class);
 // Route for get Users for yajra post request.
 Route::get('get-users', [App\Http\Controllers\Admin\UserController::class, 'getUsers'])->name('get-users');
+
+//Resource route for Place
+Route::resource('places', App\Http\Controllers\Admin\PlaceController::class);
+// Route for get Places for yajra post request.
+Route::get('get-places', [App\Http\Controllers\Admin\PlaceController::class, 'getPlaces'])->name('get-places');
