@@ -38,10 +38,13 @@
                         </div>
                         @endif
                         <div class="card">
-                            <div class="card-header">Liste des utilisateurs</div>
-
-
+                            <div class="card-header">Liste des utilisateurs</div> 
                             <div class="card-body">
+                                <button style="float: left; font-weight: 900;" class="btn btn-info btn-sm" type="button"  data-toggle="modal" id="getCreateArticleModal" data-target="#CreateArticleModal">
+                                Créer utilisateur
+                                </button>
+                            </br>
+                            </br>
                             <div class="table-responsive">
                                 <table class="table table-user">
                                     <thead>
@@ -68,8 +71,8 @@
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Create Article Modal -->
-        <!--<div class="modal" id="CreateArticleModal">
+        <!-- Create User Modal -->
+        <div class="modal" id="CreateArticleModal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     
@@ -85,38 +88,38 @@
                             </button>
                         </div>
                         <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
-                            <strong>Succès!</strong>L'utilisateur a été ajouté avec succès.
+                            <strong>L'utilisateur a été ajouté avec succès.</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="form-group">
                             <label for="name">Prénom:</label>
-                            <input type="text" class="form-control" name="name" id="name">
+                            <input type="text" class="form-control" name="nameCreate" id="nameCreate">
                         </div>
                         <div class="form-group">
                             <label for="lname">Nom:</label>
-                            <input type="text" class="form-control" name="lname" id="lname">
+                            <input type="text" class="form-control" name="lnameCreate" id="lnameCreate">
                         </div>
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="text" class="form-control" name="email" id="email">
+                            <input type="text" class="form-control" name="emailCreate" id="emailCreate">
                         </div>
                         <div class="form-group">
-                            <label for="created_at">Date de création:</label>
-                            <input type="text" class="form-control" name="created_at" id="created_at">
+                            <label for="password">Password:</label>
+                            <input type="text" class="form-control" name="passwordCreate" id="passwordCreate">
                         </div>
                     </div>
                     
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="SubmitCreateActicleForm">Créer</button>
+                        <button type="button" class="btn btn-success" id="SubmitCreateArticleForm">Créer</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
-        <!-- Edit Article Modal -->
+        <!-- Edit User Modal -->
         <div class="modal" id="EditArticleModal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -133,7 +136,7 @@
                             </button>
                         </div>
                         <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
-                            <strong>Succès!</strong>L'utilisateur a été ajouté avec succès.
+                            <strong>L'utilisateur a été modifié avec succès.</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -151,7 +154,7 @@
             </div>
         </div>
 
-        <!-- Delete Article Modal -->
+        <!-- Delete User Modal -->
         <div class="modal" id="DeleteArticleModal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -203,6 +206,9 @@
         });
 
         // Create article Ajax request.
+        $('body').on('click', '#getCreateArticleModal', function(){
+            $('#CreateArticleModal').modal('show');
+        });
         $('#SubmitCreateArticleForm').click(function(e) {
             e.preventDefault();
             $.ajaxSetup({
@@ -214,10 +220,10 @@
                 url: "{{ route('users.store') }}",
                 method: 'post',
                 data: {
-                    name: $('#name').val(),
-                    lname: $('#lname').val(),
-                    email: $('#email').val(),
-                    password: $('#password').val(),
+                    name: $('#nameCreate').val(),
+                    lname: $('#lnameCreate').val(),
+                    email: $('#emailCreate').val(),
+                    password: $('#passwordCreate').val(),
                 },
                 success: function(result) {
                     if(result.errors) {

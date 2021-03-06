@@ -59,7 +59,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
         ]);
         
@@ -67,13 +67,8 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        $user = new User;
-        $user->name = $request->name;
-        $user->lname = $request->lname;
-        $user->email = $request->email;
-        $user->password = $request->password;
+        $user->storeData($request->all());
 
-        $user->save();
         return response()->json(['success'=>'User added successfully']);
     }
 
