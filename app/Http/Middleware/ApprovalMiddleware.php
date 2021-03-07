@@ -14,7 +14,7 @@ class ApprovalMiddleware
             if (!auth()->user()->status) {
                 auth()->logout();
 
-                return redirect()->route('login')->with('message', 'NAN');
+                return redirect()->route("login")->with("message", "Votre compte doit être approuvé par l'administrateur");
             }
         }
 

@@ -53,10 +53,14 @@ class User extends Authenticatable
         return $this->roles()->where('libel', 'Admin')->exists();
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = Hash::make($value);
+    // }
+
+    // public function setPasswordAttribute($password){
+    //     $this->attributes['password'] = Hash::needsRehash($password) ? Hash::make($password) : $password;
+    // }
 
     public function getData()
     {

@@ -35,3 +35,9 @@ Route::get('get-users', [App\Http\Controllers\Admin\UserController::class, 'getU
 Route::resource('places', App\Http\Controllers\Admin\PlaceController::class);
 // Route for get Places for yajra post request.
 Route::get('get-places', [App\Http\Controllers\Admin\PlaceController::class, 'getPlaces'])->name('get-places');
+
+//Resource route for Reservation of user
+Route::resource('user-reservations', App\Http\Controllers\User\MakeReservationController::class);
+Route::get('/make-userReservations', [App\Http\Controllers\User\MakeReservationController::class, 'store'])->name('make-userReservations');
+// Route for get Places for yajra post request.
+Route::get('get-userReservations', [App\Http\Controllers\User\MakeReservationController::class, 'getReservations'])->name('get-userReservations');
