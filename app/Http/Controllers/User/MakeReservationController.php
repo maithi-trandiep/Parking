@@ -59,12 +59,9 @@ class MakeReservationController extends Controller
     public function store(Request $request, Reservation $reservation)
     {
         $user_id = Auth::user()->id;
-        $user_att = Reservation::select('user_id')->first();
-        if($user_id == $user_att->user_id) {
-            return redirect()->back()->with('message', 'NAN');
-        }
-        else {
-        $place_att = Place::select('id')->where('statutP', 0)->inRandomOrder()->first();
+        $user_att = Reservation::select('user_id')->where('user_id', $user_id)->first();
+        if( is_null($user_att) ) {
+            $place_att = Place::select('id')->where('statutP', 0)->inRandomOrder()->first();
         if( is_null($place_att) ) {
         DB::table('reservation')->insert([
             'user_id' => $user_id,
@@ -83,6 +80,10 @@ class MakeReservationController extends Controller
         }
         
         return redirect()->back()->with('message', 'Réservation a été faite avec succès.');
+            
+        }
+        else {
+            return redirect()->back()->with('message', 'Vous avez déjà occupé une place, veuillez annuller si vous souhaitez refaire la réservation !');
     }
     }
 
