@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -50,5 +51,39 @@ class User extends Authenticatable
 
     public function isAdmin() {
         return $this->roles()->where('libel', 'Admin')->exists();
-     }
+    }
+
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = Hash::make($value);
+    // }
+
+    // public function setPasswordAttribute($password){
+    //     $this->attributes['password'] = Hash::needsRehash($password) ? Hash::make($password) : $password;
+    // }
+
+    public function getData()
+    {
+        return static::orderBy('created_at','desc')->get();
+    }
+    
+    public function findData($id)
+    {
+        return static::find($id);
+    }
+
+    public function storeData($input)
+    {
+    	return static::create($input);
+    }
+
+    public function updateData($id, $input)
+    {
+        return static::find($id)->update($input);
+    }
+
+    public function deleteData($id)
+    {
+        return static::find($id)->delete();
+    }
 }
