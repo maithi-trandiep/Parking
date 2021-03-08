@@ -30,21 +30,21 @@ class PlaceSeeder extends Seeder
             array(
                 'libel' => 'C1'
             ),
-            array(
-                'libel' => 'C2'
-            ),
-            array(
-                'libel' => 'D1'
-            ),
-            array(
-                'libel' => 'D2'
-            ),
-            array(
-                'libel' => 'E1'
-            ),
-            array(
-                'libel' => 'E2'
-            ),
+            // array(
+            //     'libel' => 'C2'
+            // ),
+            // array(
+            //     'libel' => 'D1'
+            // ),
+            // array(
+            //     'libel' => 'D2'
+            // ),
+            // array(
+            //     'libel' => 'E1'
+            // ),
+            // array(
+            //     'libel' => 'E2'
+            // ),
         ));
     }
 }

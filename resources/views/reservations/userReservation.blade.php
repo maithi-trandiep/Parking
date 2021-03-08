@@ -37,6 +37,11 @@
                             {{session('message')}}
                         </div>
                         @endif
+                        @if(session('warning'))
+                        <div class="alert alert-warning">
+                            {{session('warning')}}
+                        </div>
+                        @endif
                         <div class="card">
                             <div class="card-header">Réservations</div>
 

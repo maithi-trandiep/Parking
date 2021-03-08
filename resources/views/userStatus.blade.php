@@ -84,6 +84,7 @@
     var table = $('.table').DataTable({
         processing: true,
         serverSide: true,
+        pageLength: 5,
         ajax: "{{ route('showstatus') }}",
         columns: [
             {data: 'name', name: 'name'},

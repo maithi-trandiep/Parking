@@ -67,6 +67,8 @@ class MakeReservationController extends Controller
                 'user_id' => $user_id,
                 'statutR' => 0,
             ]);
+            return redirect()->back()->with('warning', "Il n'y a plus de place, vous êtes dans la liste d'attente.");
+
             }else {
             DB::table('reservation')->insert([
                 'user_id' => $user_id,
@@ -82,7 +84,7 @@ class MakeReservationController extends Controller
             return redirect()->back()->with('message', 'Réservation a été faite avec succès.');        
         }
         else {
-            return redirect()->back()->with('message', 'Vous avez déjà occupé une place, veuillez annuller si vous souhaitez refaire la réservation !');
+            return redirect()->back()->with("warning", "Vous avez déjà occupé une place, veuillez l'annuler si vous souhaitez refaire la réservation !");
         }
     }
 
