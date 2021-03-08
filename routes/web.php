@@ -39,5 +39,16 @@ Route::get('get-places', [App\Http\Controllers\Admin\PlaceController::class, 'ge
 //Resource route for Reservation of user
 Route::resource('user-reservations', App\Http\Controllers\User\MakeReservationController::class);
 Route::get('/make-userReservations', [App\Http\Controllers\User\MakeReservationController::class, 'store'])->name('make-userReservations');
-// Route for get Places for yajra post request.
+// Route for get Reservations for yajra post request.
 Route::get('get-userReservations', [App\Http\Controllers\User\MakeReservationController::class, 'getReservations'])->name('get-userReservations');
+
+//Resource route for Reservation of admin
+Route::resource('admin-reservations', App\Http\Controllers\Admin\ManageReservationController::class);
+// Route::get('/make-userReservations', [App\Http\Controllers\User\MakeReservationController::class, 'store'])->name('make-userReservations');
+// Route for get Reservations for yajra post request.
+Route::get('get-adminReservations', [App\Http\Controllers\Admin\ManageReservationController::class, 'getReservations'])->name('get-adminReservations');
+
+// Route for Waitlist of admin
+Route::get('show-adminWaitlist', [App\Http\Controllers\Admin\ManageReservationController::class, 'showWaitList'])->name('show-adminWaitlist');
+// Route for get Waitlist for yajra post request.
+Route::get('get-adminWaitlist', [App\Http\Controllers\Admin\ManageReservationController::class, 'getWaitList'])->name('get-adminWaitlist');

@@ -32,6 +32,16 @@ class Reservation extends Model
         return static::orderBy('dateDemande','desc')->where('user_id', $user_id)->get();
     }
 
+    public function getDataAll()
+    {
+        return static::orderBy('dateDemande','desc')->get();
+    }
+
+    public function getDataWaitList()
+    {
+        return static::orderBy('dateDemande','desc')->where('statutR', 0)->get();
+    }
+
     public function findData($id)
     {
         return static::find($id);
