@@ -20,6 +20,7 @@ class Reservation extends Model
         'user_id',
         'place_id',
         'statutR',
+        'rangAttente',
         'dateDemande',
         'dateMAJ',
         'dateDebut',

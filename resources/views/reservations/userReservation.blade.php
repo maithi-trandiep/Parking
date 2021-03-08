@@ -59,6 +59,7 @@
                                                 <th>ID utilisateur</th>
                                                 <th>Place</th>
                                                 <th>Statut</th>
+                                                <th>Rang d'attente</th>
                                                 <th>Date de réservation</th>
                                                 <th>Date de début</th>
                                                 <th>Date de fin</th>
@@ -136,6 +137,7 @@
                     }
                 }
             },
+                {data: 'rangAttente', name: 'rangAttente'},
                 {data: 'dateDemande', name: 'dateDemande'},
                 {data: 'dateDebut', name: 'dateDebut'},
                 {data: 'dateFin', name: 'dateFin'},

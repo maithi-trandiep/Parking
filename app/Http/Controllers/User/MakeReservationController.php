@@ -63,9 +63,16 @@ class MakeReservationController extends Controller
         if( is_null($user_att) ) {
             $place_att = Place::select('id')->where('statutP', 0)->inRandomOrder()->first();
             if( is_null($place_att) ) {
+            
+            //$rangAttente = Reservation::select('statutR')->selectRaw('count(statutR) as rangAttente')->where('statutR', 0)->groupBy('statutR');
+            $rang = DB::table('reservation')->where('statutR', 0)->count();
+            $myRang = 1;
+            if ($rang > 0) $myRang = $rang+1;
+
             DB::table('reservation')->insert([
                 'user_id' => $user_id,
                 'statutR' => 0,
+                'rangAttente' => $myRang,
             ]);
             return redirect()->back()->with('warning', "Il n'y a plus de place, vous êtes dans la liste d'attente.");
 
