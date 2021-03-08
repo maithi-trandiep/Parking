@@ -62,29 +62,28 @@ class MakeReservationController extends Controller
         $user_att = Reservation::select('user_id')->where('user_id', $user_id)->first();
         if( is_null($user_att) ) {
             $place_att = Place::select('id')->where('statutP', 0)->inRandomOrder()->first();
-        if( is_null($place_att) ) {
-        DB::table('reservation')->insert([
-            'user_id' => $user_id,
-            'statutR' => 0,
-        ]);
-        }else {
-        DB::table('reservation')->insert([
-            'user_id' => $user_id,
-            'place_id' => $place_att->id,
-            'statutR' => 1,
-            'dateDebut' => \Carbon\Carbon::now(),
-            'dateFin' => \Carbon\Carbon::now()->addDays(7)
-        ]);
+            if( is_null($place_att) ) {
+            DB::table('reservation')->insert([
+                'user_id' => $user_id,
+                'statutR' => 0,
+            ]);
+            }else {
+            DB::table('reservation')->insert([
+                'user_id' => $user_id,
+                'place_id' => $place_att->id,
+                'statutR' => 1,
+                'dateDebut' => \Carbon\Carbon::now(),
+                'dateFin' => \Carbon\Carbon::now()->addDays(7)
+            ]);
 
-        DB::table('place')->where('id', $place_att->id)->update(['statutP' => 1]);
-        }
-        
-        return redirect()->back()->with('message', 'Réservation a été faite avec succès.');
+            DB::table('place')->where('id', $place_att->id)->update(['statutP' => 1]);
+            }
             
+            return redirect()->back()->with('message', 'Réservation a été faite avec succès.');        
         }
         else {
             return redirect()->back()->with('message', 'Vous avez déjà occupé une place, veuillez annuller si vous souhaitez refaire la réservation !');
-    }
+        }
     }
 
     /**
