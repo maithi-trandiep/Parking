@@ -237,7 +237,7 @@
                         $('.alert-danger').hide();
                         $('.alert-success').show();
                         $('.table-place').DataTable().ajax.reload();
-                        setInterval(function(){ 
+                        setTimeout(function(){ 
                             $('.alert-success').hide();
                             $('#CreateArticleModal').modal('hide');
                             location.reload();
@@ -297,7 +297,7 @@
                         $('.alert-danger').hide();
                         $('.alert-success').show();
                         $('.table-user').DataTable().ajax.reload();
-                        setInterval(function(){ 
+                        setTimeout(function(){ 
                             $('.alert-success').hide();
                             $('#EditArticleModal').hide();
                             location.reload();

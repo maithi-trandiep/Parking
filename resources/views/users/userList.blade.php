@@ -236,7 +236,7 @@
                         $('.alert-danger').hide();
                         $('.alert-success').show();
                         $('.table-user').DataTable().ajax.reload();
-                        setInterval(function(){ 
+                        setTimeout(function(){ 
                             $('.alert-success').hide();
                             $('#CreateArticleModal').modal('hide');
                             location.reload();
@@ -285,7 +285,6 @@
                     name: $('#name').val(),
                     lname: $('#lname').val(),
                     email: $('#email').val(),
-                    password: $('#password').val(),
                 },
                 success: function(result) {
                     if(result.errors) {
@@ -298,7 +297,7 @@
                         $('.alert-danger').hide();
                         $('.alert-success').show();
                         $('.table-user').DataTable().ajax.reload();
-                        setInterval(function(){ 
+                        setTimeout(function(){ 
                             $('.alert-success').hide();
                             $('#EditArticleModal').hide();
                         }, 2000);

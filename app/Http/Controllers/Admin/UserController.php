@@ -105,10 +105,6 @@ class UserController extends Controller
                 <div class="form-group">
                     <label for="Email">Email:</label>
                     <input type="text" class="form-control" name="email" id="email" value="'.$data->email.'" required/>
-                </div>
-                <div class="form-group">
-                    <label for="Password">Password:</label>
-                    <input type="text" class="form-control" name="password" id="password" value="'.$data->password.'" required/>
                 </div>';
 
         return response()->json(['html'=>$html]);
@@ -127,7 +123,6 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
         ]);
         
         if ($validator->fails()) {
