@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 
+use function PHPUnit\Framework\isTrue;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -44,15 +46,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
 
     // public function roles() {
     //     return $this->belongsToMany(Role::class, 'user_role');
     // }
-
-    public function isAdmin() {
-        return $this->where('is_admin', 1)->exists();
-    }
 
     // public function setPasswordAttribute($value)
     // {

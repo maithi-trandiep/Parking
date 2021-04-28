@@ -62,7 +62,7 @@
             <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
             
-            @if(Auth::check() && Auth::user()->isAdmin())            
+            @if(Auth::check() && Auth::user()->is_admin)            
             <li class="nav-header">UTILISATEUR</li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
