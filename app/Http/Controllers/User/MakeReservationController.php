@@ -154,22 +154,22 @@ class MakeReservationController extends Controller
                 'r.dateDebut' => \Carbon\Carbon::now(),
                 'r.dateFin' => \Carbon\Carbon::now()->addDays(7)
             ]);
-            Log::info("Nb of affected rows:", ['rows', $affected]);
+            // Log::info("Nb of affected rows:", ['rows', $affected]);
 
             // no waiting list to update, just release place
             if ($affected < 1) {
-                Log::info("no waiting list, just release place.");
+                // Log::info("no waiting list, just release place.");
                 DB::table('place')->where('id', $temp->place_id)->update(['statutP' => 0]);
             } else {
                 // update rangAttente for user
                 // move other user's rang
                 $users = User::select('id', 'rangAttente')->whereNotNull('rangAttente')->get();
                 foreach($users as $user) {
-                    Log::info("update rang for user:", ['user_id', $user->id]);
+                    //Log::info("update rang for user:", ['user_id', $user->id]);
                     //Log::info("current user rang:", ['range', $user->rangAttente]);
                     $newRang = intval($user->rangAttente)-1;
                     if ($newRang == 0) $newRang = null;
-                    Log::info("update user rang:", ['range', $newRang]);
+                    // Log::info("update user rang:", ['range', $newRang]);
                     DB::table('users')->where('id', $user->id)->update(['rangAttente' => $newRang]);
                 }
             }

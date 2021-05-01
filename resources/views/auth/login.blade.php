@@ -49,28 +49,20 @@
                 @endif
             </div>
             <div class="row">
-            <div class="col-8">
-                <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                    Se souvenir de moi
-                </label>
-                </div>
-            </div>
             <!-- /.col -->
-            <div class="col-4">
+            <div class="col-12">
                 <button type="submit" class="btn btn-primary btn-block">Valider</button>
             </div>
             <!-- /.col -->
             </div>
         </form>
-
-      <p class="mb-1">
-        <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
-      </p>
-      <p class="mb-0">
-        <a href="{{ route('register') }}" class="text-center">S'inscrire</a>
-      </p>
+        
+        <p class="mb-1">
+            <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
+        </p>
+        <p class="mb-0">
+            <a href="{{ route('register') }}" class="text-center">S'inscrire</a>
+        </p>
     </div>
     <!-- /.login-card-body -->
   </div>

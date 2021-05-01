@@ -26,17 +26,17 @@ class UserSeeder extends Seeder
             array(
             'name' => 'user1',
             'lname' => 'user1',
-            'email' => 'user1@user1.com',
+            'email' => 'thi.tdm04@gmail.com',
             'password' => bcrypt('helloworld'),
-            'status' => 0,
+            'status' => 1,
             'is_admin' => 0,
             ),
             array(
             'name' => 'user2',
             'lname' => 'user2',
-            'email' => 'user2@user2.com',
+            'email' => 'thi.trandiepmai@gmail.com',
             'password' => bcrypt('helloworld'),
-            'status' => 0,
+            'status' => 1,
             'is_admin' => 0,
             ),
             array(
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             'lname' => 'user3',
             'email' => 'user3@user3.com',
             'password' => bcrypt('helloworld'),
-            'status' => 0,
+            'status' => 1,
             'is_admin' => 0,
             ),
             array(
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
             'lname' => 'user4',
             'email' => 'user4@user4.com',
             'password' => bcrypt('helloworld'),
-            'status' => 0,
+            'status' => 1,
             'is_admin' => 0,
             ),
             array(
@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
             'lname' => 'user5',
             'email' => 'user5@user5.com',
             'password' => bcrypt('helloworld'),
-            'status' => 0,
+            'status' => 1,
             'is_admin' => 0,
             ),
             array(
