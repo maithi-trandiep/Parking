@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -50,7 +51,7 @@ class ManageReservationController extends Controller
         $data = $reservation->getDataWaitList();
         return DataTables::of($data)
             ->addColumn('Actions', function($data) {
-                return '<button type="button" data-id="'.$data->id.'" data-toggle="modal" data-target="#DeleteArticleModal" class="btn btn-danger btn-sm btnDelete" id="btnDelete-'.$data->id.'">Annuler</button>';
+                return '<button type="button" class="btn btn-success btn-sm" id="getEditRangData" data-id="'.$data->id.'">Modifier</button>';
             })
             ->rawColumns(['Actions'])
             ->make(true);
@@ -96,7 +97,30 @@ class ManageReservationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = new User;
+        $data = $user->find($id);
+        // $count = count($data->rangAttente);
+        $i = 0;
+        $a = DB::table('users')->whereNotNull('rangAttente')->count();
+        Log::info("Nb of rangs", ['count', $a]);
+
+        $optionRanges = '';
+        for($i=1; $i<=$a;$i++) {
+            if ($i == intval($data->rangAttente)) {
+                $optionRanges  = $optionRanges.'<option selected>'.$data->rangAttente.'</option>';
+            } else {
+                $optionRanges  = $optionRanges.'<option value="'.$i.'">'.$i.'</option>';
+            }
+        }
+
+        $html = '<div class="form-group">
+                    <label for="rangAttente">Rang attente</label>
+                    <select class="form-control" id="rangAttente" name="rangAttente">'.
+                    $optionRanges
+                    .'</select>
+                </div>';
+
+        return response()->json(['html'=>$html]);
     }
 
     /**
@@ -108,7 +132,10 @@ class ManageReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = new User;
+        $user->updateData($id, $request->all());
+
+        return response()->json(['success'=>'User updated successfully']);
     }
 
     /**

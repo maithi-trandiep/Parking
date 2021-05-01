@@ -24,12 +24,12 @@ class PlaceSeeder extends Seeder
             array(
                 'libel' => 'B1'
             ),
-            array(
-                'libel' => 'B2'
-            ),
-            array(
-                'libel' => 'C1'
-            ),
+            // array(
+            //     'libel' => 'B2'
+            // ),
+            // array(
+            //     'libel' => 'C1'
+            // ),
             // array(
             //     'libel' => 'C2'
             // ),

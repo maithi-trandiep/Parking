@@ -25,6 +25,7 @@ class User extends Authenticatable
         'lname',
         'email',
         'password',
+        'rangAttente',
         'status',
         'is_admin',
     ];
@@ -49,10 +50,6 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
-    // public function roles() {
-    //     return $this->belongsToMany(Role::class, 'user_role');
-    // }
-
     // public function setPasswordAttribute($value)
     // {
     //     $this->attributes['password'] = Hash::make($value);
@@ -61,6 +58,11 @@ class User extends Authenticatable
     // public function setPasswordAttribute($password){
     //     $this->attributes['password'] = Hash::needsRehash($password) ? Hash::make($password) : $password;
     // }
+
+    public function reservation()
+    {
+        return $this->hasMany('reservation');
+    }
 
     public function getData()
     {

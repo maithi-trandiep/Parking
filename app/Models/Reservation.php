@@ -20,17 +20,23 @@ class Reservation extends Model
         'user_id',
         'place_id',
         'statutR',
-        'rangAttente',
         'dateDemande',
         'dateMAJ',
         'dateDebut',
         'dateFin',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('users');
+    }
+
     public function getData()
     {
         $user_id = Auth::user()->id;
-        return static::orderBy('dateDemande','desc')->where('user_id', $user_id)->get();
+        $user_reservation = Reservation::where('user_id', $user_id)->leftJoin('users', 'users.id', '=', 'reservation.user_id')->orderBy('dateDemande', 'desc')->get();
+        return $user_reservation;
+        // return static::orderBy('dateDemande','desc')->where('user_id', $user_id)->get();
     }
 
     public function getDataAll()
@@ -40,7 +46,9 @@ class Reservation extends Model
 
     public function getDataWaitList()
     {
-        return static::orderBy('dateDemande','desc')->where('statutR', 0)->get();
+        $wait_list = Reservation::where('statutR', 0)->leftJoin('users', 'users.id', '=', 'reservation.user_id')->orderBy('dateDemande','desc')->get();
+        return $wait_list;
+        // return static::orderBy('dateDemande','desc')->where('statutR', 0)->get();
     }
 
     public function findData($id)

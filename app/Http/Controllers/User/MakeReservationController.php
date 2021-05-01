@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -72,8 +73,8 @@ class MakeReservationController extends Controller
             DB::table('reservation')->insert([
                 'user_id' => $user_id,
                 'statutR' => 0,
-                'rangAttente' => $myRang,
             ]);
+            DB::table('users')->where('id', $user_id)->update(['rangAttente' => $myRang]);
             return redirect()->back()->with('warning', "Il n'y a plus de place, vous êtes dans la liste d'attente.");
 
             }else {
@@ -135,14 +136,48 @@ class MakeReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, User $user)
     {
-        $temp = Reservation::select('id', 'place_id')->where('id', $id)->first();
+        $temp = Reservation::select('id', 'user_id', 'place_id', 'statutR')->where('id', $id)->first();
         $reservation = new Reservation;
         $reservation->deleteData($id);
+        //Log::info("test delete place for user:", ['user', $temp->user_id]);
+        //Log::info("test delete place:", ['place', $temp->place_id]);
 
-        DB::table('place')->where('id', $temp->place_id)->update(['statutP' => 0]);
+        if ($temp->statutR > 0) {
+            // update reservation
+            $rangAttente = DB::table('users')->min('rangAttente');
+            $affected = DB::table('reservation as r')->leftJoin('users as u', 'u.id', '=', 'r.user_id')->where('r.statutR', '=', 0)->where('u.rangAttente', '=', $rangAttente)
+            ->update([
+                'r.statutR' => 1, 
+                'r.place_id' => $temp->place_id,
+                'r.dateDebut' => \Carbon\Carbon::now(),
+                'r.dateFin' => \Carbon\Carbon::now()->addDays(7)
+            ]);
+            Log::info("Nb of affected rows:", ['rows', $affected]);
 
-        return response()->json(['success'=>'Place deleted successfully']);
+            // no waiting list to update, just release place
+            if ($affected < 1) {
+                Log::info("no waiting list, just release place.");
+                DB::table('place')->where('id', $temp->place_id)->update(['statutP' => 0]);
+            } else {
+                // update rangAttente for user
+                // move other user's rang
+                $users = User::select('id', 'rangAttente')->whereNotNull('rangAttente')->get();
+                foreach($users as $user) {
+                    Log::info("update rang for user:", ['user_id', $user->id]);
+                    //Log::info("current user rang:", ['range', $user->rangAttente]);
+                    $newRang = intval($user->rangAttente)-1;
+                    if ($newRang == 0) $newRang = null;
+                    Log::info("update user rang:", ['range', $newRang]);
+                    DB::table('users')->where('id', $user->id)->update(['rangAttente' => $newRang]);
+                }
+            }
+        } else {
+            // update place
+            DB::table('users')->where('id', $temp->user_id)->update(['rangAttente' => null]);
+        }
+
+        return response()->json(['success'=>'Place deleted successfully: ']);
     }
 }

@@ -19,7 +19,6 @@ class CreateReservationTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('place_id')->unsigned()->nullable();
             $table->tinyInteger('statutR');
-            $table->integer('rangAttente')->nullable();
             $table->timestamp('dateDemande')->useCurrent();
             $table->timestamp('dateMAJ')->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'))->nullable();
             $table->timestamp('dateDebut')->nullable();
