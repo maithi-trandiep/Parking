@@ -7,7 +7,7 @@
             <a href="#"><b>PARKING</b></a>
         </div>
             <div class="card">
-                <div class="card-header">{{ __('Change mot de passe') }}</div>
+                <div class="card-header">{{ __('Réinitialiser mot de passe') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('password.update') }}">
@@ -54,7 +54,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Changer mot de passe') }}
+                                    {{ __('Valider') }}
                                 </button>
                             </div>
                         </div>

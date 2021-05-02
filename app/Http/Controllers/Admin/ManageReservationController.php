@@ -99,7 +99,6 @@ class ManageReservationController extends Controller
     {
         $user = new User;
         $data = $user->find($id);
-        // $count = count($data->rangAttente);
         $i = 0;
         $a = DB::table('users')->whereNotNull('rangAttente')->count();
         Log::info("Nb of rangs", ['count', $a]);

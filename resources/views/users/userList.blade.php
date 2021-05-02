@@ -45,6 +45,11 @@
                                 </button>
                             </br>
                             </br>
+                            <div>
+                            Masquer colonne : <a class="toggle-vis" data-column="0">ID</a> - <a class="toggle-vis" data-column="1">Prénom</a> - <a class="toggle-vis" data-column="2">Nom</a> - <a class="toggle-vis" data-column="3">Email</a> - <a class="toggle-vis" data-column="4">Date de création</a>
+                            - <a class="toggle-vis" data-column="5">Action</a>
+                            </div>
+                            <br>
                             <div class="table-responsive">
                                 <table class="table table-user">
                                     <thead>
@@ -202,6 +207,11 @@
                 {data: 'email', name: 'email'},
                 {data: 'created_at', name: 'created_at'},
                 {data: 'Actions', name: 'Actions', orderable:false, serachable:false, sClass:'text-center'},
+            ],
+            columnDefs: [
+                {targets: [0,1,2,3,4,5], type: "dom-text", render: function(data, type, row, meta){
+                return data;
+            }},
             ]
         });
 
@@ -332,5 +342,11 @@
                 }
             });
         });
-    });
+        // Hide column
+        $("a.toggle-vis").on("click", function(e) {
+            e.preventDefault();
+            var column = dataTable.column($(this).attr("data-column"));
+            column.visible(!column.visible());
+        });
+});
 </script>

@@ -7,7 +7,7 @@
             <a href="#"><b>PARKING</b></a>
         </div>
             <div class="card">
-                <div class="card-header">{{ __('Changer le mot de passe') }}</div>
+                <div class="card-header">{{ __('Réinitialiser le mot de passe') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))

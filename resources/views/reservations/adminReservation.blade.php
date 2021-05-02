@@ -47,6 +47,11 @@
                                     </div>
                                 @endif
 
+                                <div>
+                                    Masquer colonne : <a class="toggle-vis" data-column="0">ID utilisateur</a> - <a class="toggle-vis" data-column="1">Place</a> - <a class="toggle-vis" data-column="2">Statut</a> - <a class="toggle-vis" data-column="3">Date de réservation</a> - <a class="toggle-vis" data-column="4">Date de début</a>
+                                    - <a class="toggle-vis" data-column="5">Date de fin</a> - <a class="toggle-vis" data-column="6">Action</a>
+                                </div>
+                                <br>
                                 <div class="table-responsive">
                                     <table class="table table-reservation">
                                         <thead>
@@ -131,6 +136,11 @@
                 {data: 'dateDebut', name: 'dateDebut'},
                 {data: 'dateFin', name: 'dateFin'},
                 {data: 'Actions', name: 'Actions', orderable:false, serachable:false, sClass:'text-center'},
+            ],
+            columnDefs: [
+                {targets: [0,1,2,3,4,5,6], type: "dom-text", render: function(data, type, row, meta){
+                return data;
+            }},
             ]
         });
 
@@ -160,7 +170,12 @@
                 }
             });
         });
-        
+        // Hide column
+        $("a.toggle-vis").on("click", function(e) {
+            e.preventDefault();
+            var column = dataTable.column($(this).attr("data-column"));
+            column.visible(!column.visible());
+        });
     
   });
 </script>
